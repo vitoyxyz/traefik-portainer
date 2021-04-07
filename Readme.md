@@ -1,14 +1,20 @@
 ## Introduction
 
+Set-up a Traefik v2 reverse proxy along with Portainer, using Docker Compose.
+
 **Prerequisites**
 
-- Ubuntu 20.04 server
-- Docker & Docker-Compose installed
+- Ubuntu 20.04 server(or any distro you want)
+- [Docker](https://docs.docker.com/engine/install/) & [Docker-Compose](https://docs.docker.com/compose/install/) installed
 - Domain name
 
-## Building the stack
+## Clone the repository
 
-#### I. Setting up DNS records
+```
+git clone https://github.com/vitoyxyz/traefik-portainer.git
+```
+
+## Setting up DNS records
 
 Alright so the first thing to do is setting up the appropiate domains so we can access our Portainer and Traefik dashboard.
 Set them up like this, point to your server:
@@ -196,13 +202,13 @@ So the first thing we should do is generate the password for basic auth that wil
 Make sure your server has `htpasswd` installed. If it doesn't you can do so with the following command or equivalent for your distro:
 
 ```
-$ sudo apt install apache-utils
+ sudo apt install apache-utils
 ```
 
 Then run the below command, replacing the username and password with the one you want to use.
 
 ```
-$ echo $(htpasswd -nb <username> <password>)
+ echo $(htpasswd -nb <username> <password>)
 ```
 
 Edit the `dynamic.yml` file and add your auth string under the `user-auth` middleware as seen in the example code.
@@ -219,7 +225,7 @@ networks:
 To create a docker network use:
 
 ```
-$ docker network create proxy
+ docker network create proxy
 ```
 
 #### III. Editing the domain names
@@ -236,7 +242,7 @@ portainer.yourdomain.com
 By default the file acme.json has the permission set to `644`, this will result in a error when running `docker-compose`. So make sure you set the permissions of that particular file to `600`. `cd` into the `core` folder and run the following command:
 
 ```
-$ sudo chmod 600 ./traefik-config/acme.json
+ sudo chmod 600 ./traefik-config/acme.json
 ```
 
 #### V. Running the stack
@@ -244,7 +250,7 @@ $ sudo chmod 600 ./traefik-config/acme.json
 Now it is time to run the stack. On the first run I always like to check the process for errors before we use the docker-compose `--detach` flag. Run the following command:
 
 ```
-$ sudo docker-compose up
+ sudo docker-compose up
 ```
 
 Right now the Traefik dashboard should be available at `traefik.yourdomain.com` and `portainer.yourdomain.com`.
@@ -252,5 +258,5 @@ Right now the Traefik dashboard should be available at `traefik.yourdomain.com` 
 When you are sure that your containers are running correctly, run them in the background by using the `--detach` option:
 
 ```
-$ sudo docker-compose down && sudo docker-compose up -d
+ sudo docker-compose down && sudo docker-compose up -d
 ```
