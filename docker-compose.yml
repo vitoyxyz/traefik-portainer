@@ -46,6 +46,20 @@ services:
       - "traefik.http.routers.portainer-secure.service=portainer"
       - "traefik.http.services.portainer.loadbalancer.server.port=9000"
 
+  # Auto update and Cleanup
+  # watchtower:
+  #   restart: always
+  #   image: containrrr/watchtower:latest
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+
+  # services:
+  #   docker-gc:
+  #     restart: always
+  #     image: spotify/docker-gc:latest
+  #     volumes:
+  #       - /var/run/docker.sock:/var/run/docker.sock
+
 networks:
   proxy:
     external: true
