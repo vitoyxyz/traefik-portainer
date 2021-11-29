@@ -250,7 +250,7 @@ By default the file acme.json has the permission set to `644`, this will result 
 Now it is time to run the stack. On the first run I always like to check the process for errors before we use the docker-compose `--detach` flag. Run the following command:
 
 ```
- sudo docker-compose up
+docker-compose up
 ```
 
 Right now the Traefik dashboard should be available at `traefik.yourdomain.com` and `portainer.yourdomain.com`.
@@ -258,5 +258,5 @@ Right now the Traefik dashboard should be available at `traefik.yourdomain.com` 
 When you are sure that your containers are running correctly, run them in the background by using the `--detach` option:
 
 ```
- sudo docker-compose down && sudo docker-compose up -d
+docker-compose down && sudo docker-compose up -d
 ```
